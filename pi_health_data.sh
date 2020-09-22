@@ -9,6 +9,8 @@ do
   loadAvg=`cat /proc/loadavg | awk {'print $2'}`
   loadNow=`top -b -n2 | grep "Cpu(s)" | awk '{print $2 + $4}' | sed -n '2p'`
   cpuTemp=`cat /sys/class/thermal/thermal_zone0/temp | awk -v FS=" " '{print $1/1000""}'`
+  memoNow=`free -h`
   echo $timestamp "CpuTemp"  $cpuTemp "LoadNowPerc" $loadNow "LoadAvgInd" $loadAvg | tee -a $logFileName
-  sleep 2
+  echo $memoNow | tee -a $logFilenName
+  sleep 10
 done
